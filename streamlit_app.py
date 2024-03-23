@@ -102,10 +102,10 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
     # Loop through each specificity and create a confusion matrix
     for spec in specificities:
         # Calculate the actual numbers
-        disease_cases = total_population * basket_prevalence
-        tp = sensitivity * disease_cases
+        disease_cases = total_population * (basket_prevalence/100)
+        tp = (sensitivity/100) * disease_cases
         fn = disease_cases - tp
-        tn = spec * (total_population - disease_cases)
+        tn = (spec/100) * (total_population - disease_cases)
         fp = (total_population - disease_cases) - tn
 
         # Calculate PPV and NPV
