@@ -97,6 +97,7 @@ st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 1</h1>", 
 
 # Streamlit widget to display the 2x2 table
 # Loop through each specificity and create a confusion matrix
+
 for spec in specificities:
         # Calculate the actual numbers
         disease_cases = total_population * basket_prevalence
@@ -104,12 +105,12 @@ for spec in specificities:
         fn = disease_cases - tp
         tn = spec * (total_population - disease_cases)
         fp = (total_population - disease_cases) - tn
-            # Calculate PPV and NPV
-ppv = tp / (tp + fp)
-npv = tn / (tn + fn)
+        # Calculate PPV and NPV
+        ppv = tp / (tp + fp)
+        npv = tn / (tn + fn)
 
- # Create the 2x2 table with annotations
-    confusion_matrix = {
+       # Create the 2x2 table with annotations
+        confusion_matrix = {
         'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
         'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
         'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
