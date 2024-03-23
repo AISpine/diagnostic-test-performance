@@ -64,10 +64,10 @@ def create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences):
     plt.title('PPV vs. Prevalence for Different Specificities')
     plt.xlabel('Prevalence, %')
     plt.ylabel('PPV, %')
-    plt.legend()
+    # Place the legend below the plot
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), fancybox=True, shadow=True, ncol=1)
     plt.grid(True)
     plt.show()
-
     return fig
 
 # Streamlit widgets for input
