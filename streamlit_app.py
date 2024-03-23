@@ -2,8 +2,11 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Add a title to the app
-st.title('Multi-cancer detection assay performance calculator (by Elie Massaad, MD, MSc)')
+# Custom title with HTML and Markdown
+st.markdown("""
+            <h1 style="text-align: center;">Multi-cancer detection assay performance calculator</h1>
+            <h2 style="text-align: center; font-style: italic;">(by Elie Massaad, MD, MSc)</h2>
+            """, unsafe_allow_html=True)
 
 # Define the calculation function
 def calculate_ppv(sensitivity, specificity, prevalence):
