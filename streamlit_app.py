@@ -2,6 +2,9 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Add a title to the app
+st.title('Multi-cancer detection assay performance calculator (by Elie Massaad, MD, MSc)')
+
 # Define the calculation function
 def calculate_ppv(sensitivity, specificity, prevalence):
     sensitivity = sensitivity / 100
