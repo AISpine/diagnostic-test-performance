@@ -36,7 +36,7 @@ age_group_prevalences = {
 def calculate_ppv(sensitivity, specificity, prevalence):
     sensitivity = sensitivity / 100
     specificity = specificity / 100
-    ppv = (sensitivity * prevalence) / ((sensitivity * prevalence) + ((1 - specificity) * (1 - prevalence)))
+    ppv = (sensitivity * (prevalence/100)) / ((sensitivity * (prevalence/100)) + ((1 - specificity) * (1 - (prevalence/100))))
     return ppv*100
 
 # Create the plot and show individual tumors and the basket on the specificity curves
