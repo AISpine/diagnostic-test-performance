@@ -92,7 +92,7 @@ st.pyplot(fig)
 
 # Streamlit widget to display the 2x2 table
 def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
-    actual_disease_cases = prevalence * total_n
+    actual_disease_cases = (prevalence/100) * total_n
     tp = sensitivity * actual_disease_cases
     fn = actual_disease_cases - tp
     tn = specificity * (total_n - actual_disease_cases)
