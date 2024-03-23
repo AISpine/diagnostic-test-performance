@@ -90,7 +90,8 @@ fig = create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences
 st.pyplot(fig)
 
 # Custom title with HTML and Markdown
-st.markdown(<h1 style="text-align: center;">Confusion Matrix</h1>, unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Confusion Matrix</h1>", unsafe_allow_html=True)
+
 
 
 
