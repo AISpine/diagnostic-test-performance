@@ -117,7 +117,7 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
 
 # Display the specificity and the DataFrame
         st.markdown(f"### Confusion Matrix for Specificity: {spec * 100:.2f}%")
-        st.dataframe(confusion_matrix_df, height=150))
+        st.dataframe(confusion_matrix_df, height=150)
 
 # Generate the 2x2 table after the plot
 basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
