@@ -98,8 +98,7 @@ st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 1</h1>", 
 # Streamlit widget to display the 2x2 table
 
 # Function to display the confusion matrix with annotations for multiple specificities
-def display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population):
-            tier1_results = []
+def display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population): tier1_results = []
     # Loop through each specificity and create a confusion matrix
     for spec in specificities:
         # Calculate the actual numbers
