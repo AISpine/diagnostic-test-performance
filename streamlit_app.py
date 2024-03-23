@@ -116,14 +116,12 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
         # Save the results for tier 2 calculations
         tier1_results.append({'specificity': spec, 'ppv': ppv, 'total_positives': tp + fp})
     return tier1_results
-            
-#Create the 2x2 table with annotations
-confusion_matrix = {
-            'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
-            'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
-            'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
-}
-
+            #Create the 2x2 table with annotations
+            confusion_matrix = {
+                        'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
+                        'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
+                        'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
+            }
 #Convert the dictionary to a DataFrame
 confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
 
