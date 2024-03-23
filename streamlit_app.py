@@ -114,7 +114,7 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
 
     # Create the 2x2 table with annotations
         confusion_matrix = {
-            'Cancer': [f"TP={tp:.0f})", f"FN={fn:.0f}\"],
+            'Cancer': [f"TP={tp:.0f})", f"FN={fn:.0f}"],
             'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
             'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
         }
