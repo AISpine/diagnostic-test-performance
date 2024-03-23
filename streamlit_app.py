@@ -37,7 +37,7 @@ def calculate_ppv(sensitivity, specificity, prevalence):
     sensitivity = sensitivity / 100
     specificity = specificity / 100
     ppv = (sensitivity * prevalence) / ((sensitivity * prevalence) + ((1 - specificity) * (1 - prevalence)))
-    return ppv * 100
+    return ppv 
 
 # Create the plot and show individual tumors and the basket on the specificity curves
 def create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences):
