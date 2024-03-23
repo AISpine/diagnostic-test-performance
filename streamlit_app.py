@@ -89,3 +89,67 @@ fig = create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences
 # Display the plot
 st.pyplot(fig)
 
+
+# Streamlit widget to display the 2x2 table
+def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
+    actual_disease_cases = prevalence * total_n
+    tp = sensitivity * actual_disease_cases
+    fn = actual_disease_cases - tp
+    tn = specificity * (total_n - actual_disease_cases)
+    fp = (total_n - actual_disease_cases) - tn
+
+    # Create a DataFrame for the 2x2 table
+    confusion_matrix_df = pd.DataFrame({
+        'Cancer': [tp, fn],
+        'Non-Cancer': [fp, tn]
+    }, index=['Tier 1 positive', 'Tier 1 negative'])
+
+    # Calculate PPV and NPV
+    ppv = tp / (tp + fp)
+    npv = tn / (tn + fn)
+
+    # Add PPV and NPV to the DataFrame
+    confusion_matrix_df.loc['Tier 1 positive', 'PPV'] = ppv
+    confusion_matrix_df.loc['Tier 1 negative', 'NPV'] = npv
+
+    # Annotations
+    annotations = {
+        'TP': 'True Positives: Cancer cases correctly identified',
+        'TN': 'True Negatives: Non-cancer cases correctly identified',
+        'FP': 'False Positives: Non-cancer cases incorrectly identified as cancer',
+        'FN': 'False Negatives: Cancer cases missed'
+    }
+
+    # Display the DataFrame
+    st.dataframe(confusion_matrix_df.style.format("{:.0f}", subset=['Cancer', 'Non-Cancer']).format("{:.2%}", subset=['PPV', 'NPV']))
+
+    # Display the annotations
+    for label, text in annotations.items():
+        st.text(f"{label}: {text}")
+
+
+# Generate the 2x2 table after the plot
+basket_prevalence = # You would calculate this based on the selected tumors, as previously shown
+total_population = 100000  # Example population size for testing
+display_confusion_matrix(sensitivity, specificities[0], basket_prevalence, total_population)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
