@@ -96,12 +96,14 @@ st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 1</h1>", 
 
 
 # Streamlit widget to display the 2x2 table
-def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
-    actual_disease_cases = (prevalence/100) * total_n
-    tp = (sensitivity/100) * actual_disease_cases
-    fn = actual_disease_cases - tp
-    tn = (specificity/100) * (total_n - actual_disease_cases)
-    fp = (total_n - actual_disease_cases) - tn
+    # Loop through each specificity and create a confusion matrix
+    for spec in specificities:
+        # Calculate the actual numbers
+        disease_cases = total_population * basket_prevalence
+        tp = sensitivity * disease_cases
+        fn = disease_cases - tp
+        tn = spec * (total_population - disease_cases)
+        fp = (total_population - disease_cases) - tn
 
     # Create a DataFrame for the 2x2 table
     confusion_matrix_df = pd.DataFrame({
@@ -129,7 +131,7 @@ def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
 # Generate the 2x2 table after the plot
 basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
 total_population = 100000  # Example population size for testing
-display_confusion_matrix(sensitivity, specificities[0], basket_prevalence, total_population)
+display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population)
 
 
 # Custom title with HTML and Markdown
