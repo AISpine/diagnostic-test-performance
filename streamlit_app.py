@@ -101,10 +101,10 @@ import pandas as pd
 # Function to display the confusion matrix with annotations for multiple specificities
 def display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population):
     for spec in specificities:
-        disease_cases = total_population * basket_prevalence
-        tp = sensitivity * disease_cases
+        disease_cases = total_population * (basket_prevalence/100)
+        tp = (sensitivity/100) * disease_cases
         fn = disease_cases - tp
-        tn = spec * (total_population - disease_cases)
+        tn = (spec/100) * (total_population - disease_cases)
         fp = (total_population - disease_cases) - tn
         ppv = tp / (tp + fp) if tp + fp > 0 else 0
         npv = tn / (tn + fn) if tn + fn > 0 else 0
