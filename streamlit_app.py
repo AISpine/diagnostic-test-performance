@@ -104,16 +104,9 @@ for spec in specificities:
         fn = disease_cases - tp
         tn = spec * (total_population - disease_cases)
         fp = (total_population - disease_cases) - tn
-
-    # Create a DataFrame for the 2x2 table
-    confusion_matrix_df = pd.DataFrame({
-        'Cancer': [tp, fn],
-        'Non-Cancer': [fp, tn]
-    }, index=['Tier 1 positive', 'Tier 1 negative'])
-
-    # Calculate PPV and NPV
-    ppv = tp / (tp + fp)
-    npv = tn / (tn + fn)
+            # Calculate PPV and NPV
+ppv = tp / (tp + fp)
+npv = tn / (tn + fn)
 
  # Create the 2x2 table with annotations
     confusion_matrix = {
