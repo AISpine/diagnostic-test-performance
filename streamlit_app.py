@@ -115,9 +115,9 @@ def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
 
  # Create the 2x2 table with annotations
     confusion_matrix = {
-        'Tier 1 Positive (Disease)': [f"TP={tp:.0f}\n(True Positives)", f"FN={fn:.0f}\n(False Negatives)"],
-        'Tier 1 Negative (Non-Disease)': [f"FP={fp:.0f}\n(False Positives)", f"TN={tn:.0f}\n(True Negatives)"],
-        'PPV / NPV': [f"PPV={ppv:.2%}\n(Positive Predictive Value)", f"NPV={npv:.2%}\n(Negative Predictive Value)"]
+        'Tier 1 Positive (Disease)': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
+        'Tier 1 Negative (Non-Disease)': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
+        'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
     }
 
     # Convert the dictionary to a DataFrame
