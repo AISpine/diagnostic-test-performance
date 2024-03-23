@@ -24,15 +24,21 @@ def create_plot(sensitivity, specificities):
         ppv_values = [calculate_ppv(sensitivity, specificity, p) for p in prevalence_range]
         ax.plot(prevalence_range * 100, ppv_values, label=f'Specificity {specificity}%')
         
-        # Markers for colorectal and Pan-GI cancers
-        ax.plot(0.5, calculate_ppv(sensitivity, specificity, 0.005), 'o', color='blue')
-        ax.plot(1.5, calculate_ppv(sensitivity, specificity, 0.015), 's', color='green')
-        
-    ax.set_title('PPV vs. Prevalence')
-    ax.set_xlabel('Prevalence (%)')
-    ax.set_ylabel('PPV (%)')
-    ax.legend()
-    ax.grid(True)
+        # Add markers for colorectal cancer prevalence at 0.5% and Pan-GI cancer at 1.5%
+        colorectal_ppv = calculate_ppv(sensitivity, specificity, 0.005)
+        pan_gi_ppv = calculate_ppv(sensitivity, specificity, 0.015)
+        # Define the style for each type of marker
+        colorectal_marker_style = {'color': 'blue', 'marker': 'o', 'markersize': 8}
+        pan_gi_marker_style = {'color': 'green', 'marker': 's', 'markersize': 8}
+        plt.plot(0.5, colorectal_ppv, **colorectal_marker_style, label='Colorectal Cancer (0.5% Prevalence)' if specificity == specificities[0] else "")
+        plt.plot(1.5, pan_gi_ppv, **pan_gi_marker_style, label='Pan-GI Cancer (1.5% Prevalence)' if specificity == specificities[0] else "")
+
+    plt.title('PPV vs. Prevalence for Different Specificities')
+    plt.xlabel('Prevalence, %')
+    plt.ylabel('PPV, %')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
     
     return fig
 
