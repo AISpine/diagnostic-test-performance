@@ -115,8 +115,8 @@ def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
 
  # Create the 2x2 table with annotations
     confusion_matrix = {
-        'Tier 1 Positive (Disease)': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
-        'Tier 1 Negative (Non-Disease)': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
+        'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
+        'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
         'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
     }
 
