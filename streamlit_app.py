@@ -113,28 +113,26 @@ def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
     ppv = tp / (tp + fp)
     npv = tn / (tn + fn)
 
-    # Add PPV and NPV to the DataFrame
-    confusion_matrix_df.loc['Tier 1 positive', 'PPV'] = ppv
-    confusion_matrix_df.loc['Tier 1 negative', 'NPV'] = npv
-
-    # Annotations
-    annotations = {
-        'TP': 'True Positives: Cancer cases correctly identified',
-        'TN': 'True Negatives: Non-cancer cases correctly identified',
-        'FP': 'False Positives: Non-cancer cases incorrectly identified as cancer',
-        'FN': 'False Negatives: Cancer cases missed'
+ # Create the 2x2 table with annotations
+    confusion_matrix = {
+        'Tier 1 Positive (Disease)': [f"TP={tp:.0f}\n(True Positives)", f"FN={fn:.0f}\n(False Negatives)"],
+        'Tier 1 Negative (Non-Disease)': [f"FP={fp:.0f}\n(False Positives)", f"TN={tn:.0f}\n(True Negatives)"],
+        'PPV / NPV': [f"PPV={ppv:.2%}\n(Positive Predictive Value)", f"NPV={npv:.2%}\n(Negative Predictive Value)"]
     }
 
-    # Display the DataFrame
-    st.dataframe(confusion_matrix_df.style.format("{:.0f}", subset=['Cancer', 'Non-Cancer']).format("{:.2%}", subset=['PPV', 'NPV']))
+    # Convert the dictionary to a DataFrame
+    confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
 
-    # Display the annotations
-    for label, text in annotations.items():
-        st.text(f"{label}: {text}")
+    # Display the DataFrame
+    st.dataframe(confusion_matrix_df, height=150)
+
+# Example values for sensitivity, specificity and basket_prevalence; replace with actual user input
+sensitivity = st.session_state.sensitivity  # Placeholder for the actual sensitivity from user input
+specificity = st.session_state.specificities[0]  # Placeholder for the actual specificity from user input
+basket_prevalence = st.session_state.basket_prevalence  # Placeholder for the actual prevalence calculated earlier
 
 
 # Generate the 2x2 table after the plot
-basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
 total_population = 100000  # Example population size for testing
 display_confusion_matrix(sensitivity, specificities[0], basket_prevalence, total_population)
 
