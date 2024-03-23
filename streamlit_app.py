@@ -122,11 +122,11 @@ for spec in specificities:
         'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
     }
 
-    # Convert the dictionary to a DataFrame
-    confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
+# Convert the dictionary to a DataFrame
+confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
 
-    # Display the DataFrame
-    st.dataframe(confusion_matrix_df, height=150)
+# Display the DataFrame
+st.dataframe(confusion_matrix_df, height=150)
 
 # Generate the 2x2 table after the plot
 basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
