@@ -90,7 +90,7 @@ fig = create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences
 st.pyplot(fig)
 
 # Custom title with HTML and Markdown
-st.markdown("<h1 style='text-align: center;'>Confusion Matrix</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 1</h1>", unsafe_allow_html=True)
 
 
 
@@ -126,16 +126,14 @@ def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
     # Display the DataFrame
     st.dataframe(confusion_matrix_df, height=150)
 
-
-
-
 # Generate the 2x2 table after the plot
 basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
 total_population = 100000  # Example population size for testing
 display_confusion_matrix(sensitivity, specificities[0], basket_prevalence, total_population)
 
 
-
+# Custom title with HTML and Markdown
+st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 2 (Reflex testing)</h1>", unsafe_allow_html=True)
 
 
 
