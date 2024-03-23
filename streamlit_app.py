@@ -129,7 +129,7 @@ def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
 
 
 # Generate the 2x2 table after the plot
-basket_prevalence=basket_prevalence
+basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
 total_population = 100000  # Example population size for testing
 display_confusion_matrix(sensitivity, specificities[0], basket_prevalence, total_population)
 
