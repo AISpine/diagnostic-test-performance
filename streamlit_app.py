@@ -9,6 +9,28 @@ st.markdown("""
             <h2 style="text-align: center; font-style: italic;">(by Elie Massaad, MD, MSc)</h2>
             """, unsafe_allow_html=True)
 
+# Define a nested dictionary with tumors and their prevalences for each age group
+age_group_prevalences = {
+    'All ages': {'Lung and Bronchus': 0.05, 'Colon and Rectum': 0.0366,'Pancreas': 0.0133',
+                 'Liver and intrahepatic bile duct': 0.0093,'Urinary bladder': 0.0182,
+                 'Esophagus': 0.0042,'Kidney/renal pelvis': 0.0172,
+                 'Stomach': 0.0069,'Head&Neck': 0.0141,'Small Intestine': 0.0025,'Gallbladder': 0.0012},
+    '40+': {'Lung and Bronchus': 0.1154, 'Colon and Rectum': 0.0808,'Pancreas': 0.0304',
+                 'Liver and intrahepatic bile duct': 0.0211,'Urinary bladder': 0.0419,
+                 'Esophagus': 0.0095,'Kidney/renal pelvis': 0.0358,
+                 'Stomach': 0.015,'Head&Neck': 0.0314,'Small Intestine': 0.0033,'Gallbladder': 0.0011},
+    '50+': {'Breast': 0.2, 'Colon': 0.3, 'Lung': 0.4},
+    '65+': {'Breast': 0.25, 'Colon': 0.35, 'Lung': 0.45}
+}
+
+
+
+
+
+
+
+
+
 # Define the calculation function
 def calculate_ppv(sensitivity, specificity, prevalence):
     sensitivity = sensitivity / 100
