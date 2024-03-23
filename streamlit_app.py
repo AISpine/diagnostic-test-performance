@@ -93,37 +93,45 @@ st.pyplot(fig)
 st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 1</h1>", unsafe_allow_html=True)
 
 
-# Streamlit widget to display the 2x2 table
+import streamlit as st
+import pandas as pd
+
+# Assume tumor_prevalences and selected_tumors are defined elsewhere in your code
+
 # Function to display the confusion matrix with annotations for multiple specificities
 def display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population):
-    
     for spec in specificities:
-                disease_cases = total_population * basket_prevalence
-                tp = sensitivity * disease_cases
-                fn = disease_cases - tp
-                tn = spec * (total_population - disease_cases)
-                fp = (total_population - disease_cases) - tn
-                ppv = tp / (tp + fp) if tp + fp > 0 else 0
-                npv = tn / (tn + fn) if tn + fn > 0 else 0
+        disease_cases = total_population * basket_prevalence
+        tp = sensitivity * disease_cases
+        fn = disease_cases - tp
+        tn = spec * (total_population - disease_cases)
+        fp = (total_population - disease_cases) - tn
+        ppv = tp / (tp + fp) if tp + fp > 0 else 0
+        npv = tn / (tn + fn) if tn + fn > 0 else 0
               
-                # Create the 2x2 table with annotations
-                confusion_matrix = {'Cancer': [f"TP={tp:.0f}",f"FN={fn:.0f}"],
-                                    'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
-                                    'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
-                                   }
-                # Convert the dictionary to a DataFrame
-                confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative']) 
-                # Display the specificity and the DataFrame
-                st.markdown(f"### Confusion Matrix for Specificity: {spec:.2f}%")
-                st.dataframe(confusion_matrix_df, height=50)
-                # Generate the 2x2 table after the plot
-                basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
-                total_population = 100000  # Example population size for testing
-                display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population)
+        # Create the 2x2 table with annotations
+        confusion_matrix = {
+            'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
+            'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
+            'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
+        }
 
+        # Convert the dictionary to a DataFrame
+        confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative']) 
 
+        # Display the specificity and the DataFrame
+        st.markdown(f"### Confusion Matrix for Specificity: {spec:.2f}%")
+        st.dataframe(confusion_matrix_df, height=150)
 
-# Custom title with HTML and Markdown
+# Calculate basket_prevalence outside the function
+basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors) / len(selected_tumors)
+total_population = 100000  # Example population size for testing
+
+# Sensitivity and specificities should come from user input or predefined values
+
+# Now call the function to display the confusion matrices
+display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population)
+
+# Custom title with HTML and Markdown for Tier 2
 st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 2 (Reflex testing)</h1>", unsafe_allow_html=True)
-
 
