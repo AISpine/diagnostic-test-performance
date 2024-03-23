@@ -50,16 +50,16 @@ def create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences):
     # Plot the PPV curves for each specificity
     for specificity in specificities:
         ppv_values = [calculate_ppv(sensitivity, specificity, p) for p in prevalence_range]
-        ax.plot(prevalence_range * 100, ppv_values, label=f'Specificity {specificity}%')
+        ax.plot(prevalence_range, ppv_values, label=f'Specificity {specificity}%')
 
         # Mark the individual tumors on the curve
         for tumor in selected_tumors:
             tumor_ppv = calculate_ppv(sensitivity, specificity, tumor_prevalences[tumor])
-            ax.plot(tumor_prevalences[tumor] * 100, tumor_ppv, 'o', label=f'{tumor} (Prevalence {tumor_prevalences[tumor]*100}%)')
+            ax.plot(tumor_prevalences[tumor], tumor_ppv, 'o', label=f'{tumor} (Prevalence {tumor_prevalences[tumor]*100}%)')
 
         # Mark the basket on the curve
         basket_ppv = calculate_ppv(sensitivity, specificity, basket_prevalence)
-        ax.plot(basket_prevalence * 100, basket_ppv, 'X', markersize=10, label=f'Basket (Combined Prevalence {basket_prevalence*100}%)')
+        ax.plot(basket_prevalence, basket_ppv, 'X', markersize=10, label=f'Basket (Combined Prevalence {basket_prevalence*100}%)')
 
     plt.title('PPV vs. Prevalence for Different Specificities')
     plt.xlabel('Prevalence, %')
