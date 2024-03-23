@@ -114,16 +114,16 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
 
     # Create the 2x2 table with annotations
         confusion_matrix = {
-            'Tier 1 Positive (Disease)': [f"TP={tp:.0f}\n(True Positives)", f"FN={fn:.0f}\n(False Negatives)"],
-            'Tier 1 Negative (Non-Disease)': [f"FP={fp:.0f}\n(False Positives)", f"TN={tn:.0f}\n(True Negatives)"],
-            'PPV / NPV': [f"PPV={ppv:.2%}\n(Positive Predictive Value)", f"NPV={npv:.2%}\n(Negative Predictive Value)"]
+            'Cancer': [f"TP={tp:.0f})", f"FN={fn:.0f}\"],
+            'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
+            'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
         }
 
 # Convert the dictionary to a DataFrame
         confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
 
 # Display the specificity and the DataFrame
-        st.markdown(f"### Confusion Matrix for Specificity: {spec * 100:.2f}%")
+        st.markdown(f"### Confusion Matrix for Specificity: {spec:.2f}%")
         st.dataframe(confusion_matrix_df, height=150)
 
 # Generate the 2x2 table after the plot
