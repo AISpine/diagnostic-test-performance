@@ -23,7 +23,10 @@ age_group_prevalences = {
                  'Liver and intrahepatic bile duct': 0.0313,'Urinary bladder': 0.0631,
                  'Esophagus': 0.0141,'Kidney/renal pelvis': 0.0476,
                  'Stomach': 0.0212,'Head&Neck': 0.0439,'Small Intestine': 0.0075,'Gallbladder': 0.0040},
-    '65+': {'Breast': 0.25, 'Colon': 0.35, 'Lung': 0.45}
+    '65+': {'Lung and Bronchus': 0.2937, 'Colon and Rectum': 0.1582,'Pancreas': 0.0738,
+                 'Liver and intrahepatic bile duct': 0.0438,'Urinary bladder': 0.112,
+                 'Esophagus': 0.0214,'Kidney/renal pelvis': 0.0,625,
+                 'Stomach': 0.0327,'Head&Neck': 0.0562,'Small Intestine': 0.0107,'Gallbladder': 0.0066}
 }
 
 
