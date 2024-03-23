@@ -93,11 +93,8 @@ st.pyplot(fig)
 st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 1</h1>", unsafe_allow_html=True)
 
 
-
-
 # Streamlit widget to display the 2x2 table
 # Function to display the confusion matrix with annotations for multiple specificities
-# Function to display the confusion matrix for tier 1 and return PPVs and total positives for tier 2
 def display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population):
     
     for spec in specificities:
@@ -110,9 +107,9 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
                 npv = tn / (tn + fn) if tn + fn > 0 else 0
               
                 # Create the 2x2 table with annotations
-                confusion_matrix = {'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],'Non-Cancer': [f"FP={fp:.0f}",
-                                                                                              f"TN={tn:.0f}"],'PPV / NPV': [f"PPV={ppv:.2%}",
-                                                                                                                            f"NPV={npv:.2%}"]
+                confusion_matrix = {'Cancer': [f"TP={tp:.0f}",f"FN={fn:.0f}"],
+                                    'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
+                                    'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
                                    }
                 # Convert the dictionary to a DataFrame
                 confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative']) 
