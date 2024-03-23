@@ -118,18 +118,18 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
     return tier1_results
 
 
-#Create the 2x2 table with annotations
-confusion_matrix = {
+        # Create the 2x2 table with annotations
+        confusion_matrix = {
             'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
             'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
             'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
-}
-#Convert the dictionary to a DataFrame
-confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
+        }
+        # Convert the dictionary to a DataFrame
+        confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
 
-# Display the specificity and the DataFrame
-st.markdown(f"### Confusion Matrix for Specificity: {spec:.2f}%")
-st.dataframe(confusion_matrix_df, height=150)
+        # Display the specificity and the DataFrame
+        st.markdown(f"### Confusion Matrix for Specificity: {spec:.2f}%")
+        st.dataframe(confusion_matrix_df, height=150)
 
 # Generate the 2x2 table after the plot
 basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
