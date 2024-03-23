@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Custom title with HTML and Markdown
 st.markdown("""
-            <h1 style="text-align: center;">Multi-cancer detection assay performance calculator</h1>
+            <h1 style="text-align: center;">Multi-cancer Early Detection Assay Performance Calculator</h1>
             <h2 style="text-align: center; font-style: italic;">(by Elie Massaad, MD, MSc)</h2>
             """, unsafe_allow_html=True)
 
