@@ -37,7 +37,7 @@ def create_plot(sensitivity, specificities):
     return fig
 
 # Streamlit widgets
-sensitivity = st.slider('Sensitivity (%)', min_value=50, max_value=100, value=99, step=1)
+sensitivity = st.slider('Sensitivity (%)', min_value=0, max_value=100, value=99, step=1)
 specificity_string = st.text_input('Specificities (%)', value='95,97,99')
 specificities = list(map(int, specificity_string.split(',')))
 
