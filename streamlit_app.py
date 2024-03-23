@@ -126,13 +126,11 @@ def display_confusion_matrix(sensitivity, specificity, prevalence, total_n):
     # Display the DataFrame
     st.dataframe(confusion_matrix_df, height=150)
 
-# Example values for sensitivity, specificity and basket_prevalence; replace with actual user input
-sensitivity = st.session_state.sensitivity  # Placeholder for the actual sensitivity from user input
-specificity = st.session_state.specificities[0]  # Placeholder for the actual specificity from user input
-basket_prevalence = st.session_state.basket_prevalence  # Placeholder for the actual prevalence calculated earlier
+
 
 
 # Generate the 2x2 table after the plot
+basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
 total_population = 100000  # Example population size for testing
 display_confusion_matrix(sensitivity, specificities[0], basket_prevalence, total_population)
 
