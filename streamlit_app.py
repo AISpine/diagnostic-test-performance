@@ -113,7 +113,7 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
         npv = tn / (tn + fn) if tn + fn > 0 else 0
 
 # Convert the dictionary to a DataFrame
-confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
+        confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
 
 # Display the DataFrame
 st.dataframe(confusion_matrix_df, height=150)
