@@ -112,6 +112,13 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
         ppv = tp / (tp + fp) if tp + fp > 0 else 0
         npv = tn / (tn + fn) if tn + fn > 0 else 0
 
+    # Create the 2x2 table with annotations
+        confusion_matrix = {
+            'Tier 1 Positive (Disease)': [f"TP={tp:.0f}\n(True Positives)", f"FN={fn:.0f}\n(False Negatives)"],
+            'Tier 1 Negative (Non-Disease)': [f"FP={fp:.0f}\n(False Positives)", f"TN={tn:.0f}\n(True Negatives)"],
+            'PPV / NPV': [f"PPV={ppv:.2%}\n(Positive Predictive Value)", f"NPV={npv:.2%}\n(Negative Predictive Value)"]
+        }
+
 # Convert the dictionary to a DataFrame
         confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
 
