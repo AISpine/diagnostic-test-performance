@@ -32,11 +32,6 @@ age_group_prevalences = {
 
 
 
-
-
-
-
-
 # Define the calculation function
 def calculate_ppv(sensitivity, specificity, prevalence):
     sensitivity = sensitivity / 100
@@ -44,56 +39,52 @@ def calculate_ppv(sensitivity, specificity, prevalence):
     ppv = (sensitivity * prevalence) / ((sensitivity * prevalence) + ((1 - specificity) * (1 - prevalence)))
     return ppv * 100
 
-# Create the plot
-def create_plot(sensitivity, specificities):
+# Create the plot and show individual tumors and the basket on the specificity curves
+def create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences):
     prevalence_range = np.linspace(0, 0.03, 100)
     fig, ax = plt.subplots()
-    
-    ppv_table_data = []
-    
+
+    # Calculate the combined prevalence for the selected basket of tumors
+    basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
+
+    # Plot the PPV curves for each specificity
     for specificity in specificities:
         ppv_values = [calculate_ppv(sensitivity, specificity, p) for p in prevalence_range]
         ax.plot(prevalence_range * 100, ppv_values, label=f'Specificity {specificity}%')
-        
-        # Calculate PPV for colorectal and Pan-GI cancer prevalences
-        colorectal_ppv = calculate_ppv(sensitivity, specificity, 0.005)
-        pan_gi_ppv = calculate_ppv(sensitivity, specificity, 0.015)
-        
-        # Append the PPV values for the table
-        ppv_table_data.append({'Specificity': specificity,
-                               'Colorectal Cancer PPV (%)': colorectal_ppv,
-                               'Pan-GI Cancer PPV (%)': pan_gi_ppv})
-        
-      # Define the style for each type of marker
-        colorectal_marker_style = {'color': 'blue', 'marker': 'o', 'markersize': 8}
-        pan_gi_marker_style = {'color': 'green', 'marker': 's', 'markersize': 8}
-        plt.plot(0.5, colorectal_ppv, **colorectal_marker_style, label='Colorectal Cancer (0.5% Prevalence)' if specificity == specificities[0] else "")
-        plt.plot(1.5, pan_gi_ppv, **pan_gi_marker_style, label='Pan-GI Cancer (1.5% Prevalence)' if specificity == specificities[0] else "")
+
+        # Mark the individual tumors on the curve
+        for tumor in selected_tumors:
+            tumor_ppv = calculate_ppv(sensitivity, specificity, tumor_prevalences[tumor])
+            ax.plot(tumor_prevalences[tumor] * 100, tumor_ppv, 'o', label=f'{tumor} (Prevalence {tumor_prevalences[tumor]*100}%)')
+
+        # Mark the basket on the curve
+        basket_ppv = calculate_ppv(sensitivity, specificity, basket_prevalence)
+        ax.plot(basket_prevalence * 100, basket_ppv, 'X', markersize=10, label=f'Basket (Combined Prevalence {basket_prevalence*100}%)')
 
     plt.title('PPV vs. Prevalence for Different Specificities')
     plt.xlabel('Prevalence, %')
     plt.ylabel('PPV, %')
     plt.legend()
     plt.grid(True)
-    
     plt.show()
-    
-    # Return the figure and the table data
-    return fig, ppv_table_data
+
+    return fig
 
 # Streamlit widgets for input
 sensitivity = st.slider('Sensitivity (%)', min_value=0, max_value=100, value=99, step=1)
 specificity_string = st.text_input('Specificities (%)', value='95,97,99')
 specificities = list(map(int, specificity_string.split(',')))
 
-# Generate the plot and table data
-fig, ppv_table_data = create_plot(sensitivity, specificities)
+# Dropdown to select age group
+age_group = st.selectbox('Select Age Group', list(age_group_prevalences.keys()))
+
+# Multi-select for choosing tumors based on selected age group
+selected_tumors = st.multiselect('Select Tumors for Basket', list(age_group_prevalences[age_group].keys()))
+
+# Generate the plot with the selected tumors and basket
+tumor_prevalences = age_group_prevalences[age_group]  # Prevalences for the selected age group
+fig = create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences)
 
 # Display the plot
 st.pyplot(fig)
-
-# Create a DataFrame from the PPV values and display it as a table
-ppv_df = pd.DataFrame(ppv_table_data)
-st.table(ppv_df)
-
 
