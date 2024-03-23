@@ -115,10 +115,10 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
                                                                                               f"TN={tn:.0f}"],'PPV / NPV': [f"PPV={ppv:.2%}",
                                                                                                                             f"NPV={npv:.2%}"]
                                    }
- # Convert the dictionary to a DataFrame
- confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
+                # Convert the dictionary to a DataFrame
+                confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative']) 
 
- # Display the specificity and the DataFrame
+# Display the specificity and the DataFrame
  st.markdown(f"### Confusion Matrix for Specificity: {spec:.2f}%")
  st.dataframe(confusion_matrix_df, height=150)
 
