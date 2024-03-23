@@ -73,7 +73,8 @@ def create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences):
 # Streamlit widgets for input
 sensitivity = st.slider('Sensitivity (%)', min_value=0, max_value=100, value=99, step=1)
 specificity_string = st.text_input('Specificities (%)', value='95,97,99')
-specificities = list(map(int, specificity_string.split(',')))
+specificities = list(map(float, specificity_string.split(',')))
+
 
 # Dropdown to select age group
 age_group = st.selectbox('Select Age Group', list(age_group_prevalences.keys()))
