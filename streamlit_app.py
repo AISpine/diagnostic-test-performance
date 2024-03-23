@@ -122,10 +122,10 @@ confusion_matrix = {
             'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
             'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
             'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
-        }
+}
 
-# Convert the dictionary to a DataFrame
- confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
+#Convert the dictionary to a DataFrame
+confusion_matrix_df = pd.DataFrame(confusion_matrix, index=['Test Result Positive', 'Test Result Negative'])
 
 # Display the specificity and the DataFrame
  st.markdown(f"### Confusion Matrix for Specificity: {spec:.2f}%")
