@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 # Define the calculation function
 def calculate_ppv(sensitivity, specificity, prevalence):
