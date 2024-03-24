@@ -174,13 +174,14 @@ def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, prevalence_
     fp_tier2 = (total_population_tier2 - disease_cases_tier2) - tn_tier2
     ppv_tier2 = tp_tier2 / (tp_tier2 + fp_tier2) if tp_tier2 + fp_tier2 > 0 else 0  # Positive Predictive Value
     npv_tier2 = tn_tier2 / (tn_tier2 + fn_tier2) if tn_tier2 + fn_tier2 > 0 else 0  # Negative Predictive Value
-    
-     confusion_matrix_tier2 = pd.DataFrame({
+           
+            confusion_matrix_tier2 = pd.DataFrame({
     'Cancer': [f"TP={tp_tier2:.0f}", f"FN={fn_tier2:.0f}"],
     'Non-Cancer': [f"FP={fp_tier2:.0f}", f"TN={tn_tier2:.0f}"],
     'PPV / NPV': [f"PPV={ppv_tier2:.2%}", f"NPV={npv_tier2:.2%}"]
      }, index=['Test Result Positive', 'Test Result Negative'])
      st.dataframe(confusion_matrix_tier2)
+
 
 
 
