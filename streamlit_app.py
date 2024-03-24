@@ -153,6 +153,7 @@ def calculate_tier1(sensitivity, specificities, basket_prevalence, total_populat
         # Calculate PPV and NPV
         ppv = tp / (tp + fp) if tp + fp > 0 else 0
         npv = tn / (tn + fn) if tn + fn > 0 else 0
+        total_positives=(tp+fp)       
 
         # Save the results for tier 2 calculations
         tier1_results.append({'specificity': spec, 'ppv': ppv, 'total_positives': tp + fp})
@@ -161,8 +162,8 @@ def calculate_tier1(sensitivity, specificities, basket_prevalence, total_populat
 # Function to display the confusion matrix for tier 2
 def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, tier1_ppv, total_positives):
     # The prevalence for tier 2 is the PPV from tier 1
-    prevalence_tier2 = tier1_ppv
-    total_population_tier2 = total_positives
+    prevalence_tier2 = tier1_results[ppv]
+    total_population_tier2 = tier1_result['total_positives']
 
     # Calculate the actual numbers for tier 2
     disease_cases_tier2 = total_population_tier2 * (prevalence_tier2/100)
