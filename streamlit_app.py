@@ -200,3 +200,4 @@ for result in tier1_results:
     st.markdown(f"### Reflex Test Matrix for Initial Specificity: {result['specificity']:.2f}%")  # Display specificity as a percentage
     display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, result['ppv'], result['total_positives'])  # PPV needs to be passed as a proportion
 
+
