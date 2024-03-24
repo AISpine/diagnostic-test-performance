@@ -71,7 +71,7 @@ def create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences):
     return fig
 
 # Streamlit widgets for input
-sensitivity = st.slider('Tier 1Sensitivity (%)', min_value=0.0, max_value=100.0, value=99.0, step=0.1)
+sensitivity = st.slider('Tier 1 Sensitivity (%)', min_value=0.0, max_value=100.0, value=99.0, step=0.1)
 # Streamlit widget for inputting specificities as a comma-separated list
 specificity_string = st.text_input('Specificities (%)', placeholder='Enter specificities as a comma-separated list, e.g., 95, 97.5, 99', help="Input specificities as a comma-separated list without spaces, such as '95,97.5,99'.")
 
