@@ -41,7 +41,7 @@ def calculate_ppv(sensitivity, specificity, prevalence):
 
 # Create the plot and show individual tumors and the basket on the specificity curves
 def create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences):
-    prevalence_range = np.linspace(0, 2, 100)
+    prevalence_range = np.linspace(0, 1.5, 100)
     fig, ax = plt.subplots()
 
     # Calculate the combined prevalence for the selected basket of tumors
