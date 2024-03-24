@@ -179,8 +179,8 @@ def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, prevalence_
   pd.DataFrame({
         'Cancer': [f"TP={tp_tier2:.0f}", f"FN={fn_tier2:.0f}"],
         'Non-Cancer': [f"FP={fp_tier2:.0f}", f"TN={tn_tier2:.0f}"],
-        'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"      
-    }, index=['Test Result Positive', 'Test Result Negative'])
+        'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}",
+                      }, index=['Test Result Positive', 'Test Result Negative'])
     
     st.dataframe(confusion_matrix_tier2)
 
