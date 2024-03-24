@@ -165,7 +165,7 @@ def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, tier1_ppv, 
     total_population_tier2 = total_positives
 
     # Calculate the actual numbers for tier 2
-    disease_cases_tier2 = total_population_tier2 * prevalence_tier2
+    disease_cases_tier2 = total_population_tier2 * (prevalence_tier2/100)
     tp_tier2 = (tier2_sensitivity/100) * disease_cases_tier2
     fn_tier2 = disease_cases_tier2 - tp_tier2
     tn_tier2 = (tier2_specificity/100) * (total_population_tier2 - disease_cases_tier2)
