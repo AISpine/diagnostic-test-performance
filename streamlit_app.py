@@ -93,8 +93,6 @@ st.pyplot(fig)
 st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 1</h1>", unsafe_allow_html=True)
 
 
-import streamlit as st
-import pandas as pd
 
 # Assume tumor_prevalences and selected_tumors are defined elsewhere in your code
 
@@ -135,3 +133,59 @@ display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_po
 # Custom title with HTML and Markdown for Tier 2
 st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 2 (Reflex testing)</h1>", unsafe_allow_html=True)
 
+# Function to display the confusion matrix for tier 1 and return PPVs and total positives for tier 2
+def calculate_tier1(sensitivity, specificities, basket_prevalence, total_population):
+    tier1_results = []
+    for spec in specificities:
+        # Calculate the actual numbers
+        disease_cases = total_population * basket_prevalence
+        tp = (sensitivity/100) * disease_cases
+        fn = disease_cases - tp
+        tn = (spec/100) * (total_population - disease_cases)
+        fp = (total_population - disease_cases) - tn
+
+        # Calculate PPV and NPV
+        ppv = tp / (tp + fp) if tp + fp > 0 else 0
+        npv = tn / (tn + fn) if tn + fn > 0 else 0
+
+        # Save the results for tier 2 calculations
+        tier1_results.append({'specificity': spec, 'ppv': ppv, 'total_positives': tp + fp})
+    return tier1_results
+
+# Function to display the confusion matrix for tier 2
+def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, tier1_ppv, total_positives):
+    # The prevalence for tier 2 is the PPV from tier 1
+    prevalence_tier2 = tier1_ppv
+    total_population_tier2 = total_positives
+
+    # Calculate the actual numbers for tier 2
+    disease_cases_tier2 = total_population_tier2 * prevalence_tier2
+    tp_tier2 = (tier2_sensitivity/100) * disease_cases_tier2
+    fn_tier2 = disease_cases_tier2 - tp_tier2
+    tn_tier2 = (tier2_specificity/100) * (total_population_tier2 - disease_cases_tier2)
+    fp_tier2 = (total_population_tier2 - disease_cases_tier2) - tn_tier2
+
+    # Create and display the 2x2 table for tier 2
+    confusion_matrix_tier2 = pd.DataFrame({
+        'Cancer': [f"TP={tp_tier2:.0f}", f"FN={fn_tier2:.0f}"],
+        'Non-Cancer': [f"FP={fp_tier2:.0f}", f"TN={tn_tier2:.0f}"],
+    }, index=['Test Result Positive', 'Test Result Negative'])
+    
+    st.dataframe(confusion_matrix_tier2)
+
+
+# Display the sliders for reflex test specificity and sensitivity
+st.markdown("## Reflex Test Parameters")
+tier2_sensitivity = st.slider('Reflex Test Sensitivity (%)', min_value=0.0, max_value=100.0, value=99.0, step=0.1)
+tier2_specificity = st.slider('Reflex Test Specificity (%)', min_value=0.0, max_value=100.0, value=99.0, step=0.1)
+
+# Calculate tier 1 and get results for tier 2
+tier1_results = calculate_tier1(sensitivity, specificities, basket_prevalence, total_population)
+
+# Display a title for reflex test matrices
+st.markdown("## Reflex Test Matrices")
+
+# Loop through tier 1 results to display reflex test matrices
+for result in tier1_results:
+    st.markdown(f"### Reflex Test Matrix for Initial Specificity: {result['specificity']:.2f}%")
+    display_reflex_test_matrix(tier2_sensitivity / 100, tier2_specificity / 100, result['ppv'], result['total_positives'])
