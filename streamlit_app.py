@@ -167,7 +167,7 @@ def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, prevalence_
     # No need to redefine prevalence_tier2 and total_population_tier2 here, use the passed arguments directly
 
     # Adjust for the percentage inputs
-    disease_cases_tier2 = total_population_tier2 * (prevalence_tier2/100)
+    disease_cases_tier2 = total_population_tier2 * (prevalence_tier2)
     tp_tier2 = (tier2_sensitivity/100) * disease_cases_tier2
     fn_tier2 = disease_cases_tier2 - tp_tier2
     tn_tier2 = (tier2_specificity/100) * (total_population_tier2 - disease_cases_tier2)
