@@ -172,31 +172,19 @@ def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, prevalence_
     fn_tier2 = disease_cases_tier2 - tp_tier2
     tn_tier2 = (tier2_specificity/100) * (total_population_tier2 - disease_cases_tier2)
     fp_tier2 = (total_population_tier2 - disease_cases_tier2) - tn_tier2
-    ppv = tp_tier2 / (tp_tier2 + fp_tier2) if tp_tier2 + fp_tier2 > 0 else 0  # Positive Predictive Value
-    npv = tn_tier2 / (tn_tier2 + fn_tier2) if tn_tier2 + fn_tier2 > 0 else 0  # Negative Predictive Value
-    sensitivity = tp_tier2 / (tp_tier2 + fn_tier2) if tp_tier2 + fn_tier2 > 0 else 0  # True Positive Rate
-    specificity = tn_tier2 / (tn_tier2 + fp_tier2) if tn_tier2 + fp_tier2 > 0 else 0  # True Negative Rate
+    ppv_tier2 = tp_tier2 / (tp_tier2 + fp_tier2) if tp_tier2 + fp_tier2 > 0 else 0  # Positive Predictive Value
+    npv_tier2 = tn_tier2 / (tn_tier2 + fn_tier2) if tn_tier2 + fn_tier2 > 0 else 0  # Negative Predictive Value
 
-            
-   # Create the confusion matrix DataFrame
-    confusion_matrix_tier2 = pd.DataFrame({
-        'Test Result Positive': [f"TP={tp_tier2:.0f} (Sick)", f"FN={fn_tier2:.0f} (Sick)"],
-        'Test Result Negative': [f"FP={fp_tier2:.0f} (Healthy)", f"TN={tn_tier2:.0f} (Healthy)"]
-    }, index=['Disease +', 'Disease -'])
-
-    # Adding PPV and NPV to the DataFrame
-    confusion_matrix_tier2.loc['Disease +', 'PPV'] = f"PPV={ppv:.2%}"
-    confusion_matrix_tier2.loc['Disease -', 'NPV'] = f"NPV={npv:.2%}"
-
-    # Adding Sensitivity and Specificity at the bottom of the DataFrame
-    confusion_matrix_tier2.loc['Sensitivity', 'Test Result Positive'] = f"Sensitivity={sensitivity:.2%}"
-    confusion_matrix_tier2.loc['Specificity', 'Test Result Negative'] = f"Specificity={specificity:.2%}"
-
-    # Fill the empty spots with non-applicable symbols or empty strings
-    confusion_matrix_tier2.fillna("", inplace=True)
+   
+  pd.DataFrame({
+        'Cancer': [f"TP={tp_tier2:.0f}", f"FN={fn_tier2:.0f}"],
+        'Non-Cancer': [f"FP={fp_tier2:.0f}", f"TN={tn_tier2:.0f}"],
+        'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"      
+    }, index=['Test Result Positive', 'Test Result Negative'])
     
-    # Display the DataFrame
     st.dataframe(confusion_matrix_tier2)
+
+
 
 # Assuming these variables are defined with correct values:
 # sensitivity, specificities, basket_prevalence, total_population
