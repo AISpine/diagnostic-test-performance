@@ -72,8 +72,15 @@ def create_plot(sensitivity, specificities, selected_tumors, tumor_prevalences):
 
 # Streamlit widgets for input
 sensitivity = st.slider('Tier 1Sensitivity (%)', min_value=0.0, max_value=100.0, value=99.0, step=0.1)
-specificity_string = st.text_input('Specificities (%)', value='95,97,99')
-specificities = list(map(float, specificity_string.split(',')))
+# Streamlit widget for inputting specificities as a comma-separated list
+specificity_string = st.text_input('Specificities (%)', placeholder='Enter specificities as a comma-separated list, e.g., 95, 97.5, 99', help="Input specificities as a comma-separated list without spaces, such as '95,97.5,99'.")
+
+# Process the input string to create a list of specificities as floats
+specificities = [float(spec.strip()) for spec in specificity_string.split(',')] if specificity_string else []
+
+# Optionally display the processed specificities to the user for verification
+st.write("Processed specificities:", specificities)
+
 
 # Dropdown to select age group
 age_group = st.selectbox('Select Age Group', list(age_group_prevalences.keys()))
