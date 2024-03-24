@@ -162,32 +162,31 @@ def calculate_tier1(sensitivity, specificities, basket_prevalence, total_populat
         tier1_results.append({'specificity': spec, 'ppv': ppv, 'total_positives': tp + fp})
     return tier1_results
 
+
+
 # Function to display the confusion matrix for tier 2 testing
 def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, prevalence_tier2, total_population_tier2):
-    # No need to redefine prevalence_tier2 and total_population_tier2 here, use the passed arguments directly
-
     # Adjust for the percentage inputs
-    disease_cases_tier2 = total_population_tier2 * (prevalence_tier2)
-    tp_tier2 = (tier2_sensitivity/100) * disease_cases_tier2
+    disease_cases_tier2 = total_population_tier2 * prevalence_tier2
+    tp_tier2 = (tier2_sensitivity / 100) * disease_cases_tier2
     fn_tier2 = disease_cases_tier2 - tp_tier2
-    tn_tier2 = (tier2_specificity/100) * (total_population_tier2 - disease_cases_tier2)
+    tn_tier2 = (tier2_specificity / 100) * (total_population_tier2 - disease_cases_tier2)
     fp_tier2 = (total_population_tier2 - disease_cases_tier2) - tn_tier2
     ppv_tier2 = tp_tier2 / (tp_tier2 + fp_tier2) if tp_tier2 + fp_tier2 > 0 else 0  # Positive Predictive Value
     npv_tier2 = tn_tier2 / (tn_tier2 + fn_tier2) if tn_tier2 + fn_tier2 > 0 else 0  # Negative Predictive Value
-           
-            confusion_matrix_tier2 = pd.DataFrame({
-    'Cancer': [f"TP={tp_tier2:.0f}", f"FN={fn_tier2:.0f}"],
-    'Non-Cancer': [f"FP={fp_tier2:.0f}", f"TN={tn_tier2:.0f}"],
-    'PPV / NPV': [f"PPV={ppv_tier2:.2%}", f"NPV={npv_tier2:.2%}"]
-     }, index=['Test Result Positive', 'Test Result Negative'])
-     st.dataframe(confusion_matrix_tier2)
+    
+    # Create and display the 2x2 table for tier 2
+    confusion_matrix_tier2 = pd.DataFrame({
+        'Cancer': [f"TP={tp_tier2:.0f}", f"FN={fn_tier2:.0f}"],
+        'Non-Cancer': [f"FP={fp_tier2:.0f}", f"TN={tn_tier2:.0f}"],
+        'PPV / NPV': [f"PPV={ppv_tier2:.2%}", f"NPV={npv_tier2:.2%}"]
+    }, index=['Test Result Positive', 'Test Result Negative'])
+    
+    st.dataframe(confusion_matrix_tier2)
 
-
-
-
-
-# Assuming these variables are defined with correct values:
+# Assuming calculate_tier1 and the following variables are defined elsewhere in your code:
 # sensitivity, specificities, basket_prevalence, total_population
+
 # Display the sliders for reflex test specificity and sensitivity
 st.markdown("## Reflex Test Parameters")
 tier2_sensitivity = st.slider('Reflex Test Sensitivity (%)', min_value=0.0, max_value=100.0, value=99.0, step=0.1)
@@ -198,6 +197,6 @@ tier1_results = calculate_tier1(sensitivity, specificities, basket_prevalence, t
 
 # Loop through tier 1 results to display reflex test matrices
 for result in tier1_results:
-    st.markdown(f"### Reflex Test Matrix for Initial Specificity: {result['specificity']:.2f}%")  # Convert back to percentage for display
-    display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, result['ppv'], result['total_positives'])  # Convert sliders to proportions
+    st.markdown(f"### Reflex Test Matrix for Initial Specificity: {result['specificity']*100:.2f}%")  # Display specificity as a percentage
+    display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, result['ppv']/100, result['total_positives'])  # PPV needs to be passed as a proportion
 
