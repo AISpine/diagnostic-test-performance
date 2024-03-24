@@ -127,7 +127,7 @@ total_population = 100000  # Example population size for testing
 # Sensitivity and specificities should come from user input or predefined values
 
 # Now call the function to display the confusion matrices
-display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population)
+display_confusion_matrix(sensitivity/100, specificities/100, basket_prevalence, total_population)
 
 # Custom title with HTML and Markdown for Tier 2
 st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 2 (Reflex testing)</h1>", unsafe_allow_html=True)
