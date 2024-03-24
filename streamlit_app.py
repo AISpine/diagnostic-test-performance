@@ -160,7 +160,7 @@ def calculate_tier1(sensitivity, specificities, basket_prevalence, total_populat
     return tier1_results
 
 # Function to display the confusion matrix for tier 2
-def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, tier1_ppv, total_positives):
+def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, tier1_results['ppv'], tier1_result['total_positives']):
     # The prevalence for tier 2 is the PPV from tier 1
     prevalence_tier2 = tier1_results['ppv']
     total_population_tier2 = tier1_result['total_positives']
