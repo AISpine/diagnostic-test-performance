@@ -137,7 +137,7 @@ def calculate_tier1(sensitivity, specificities, basket_prevalence, total_populat
     tier1_results = []
     for spec in specificities:
         # Calculate the actual numbers
-        disease_cases = total_population * basket_prevalence
+        disease_cases = total_population * (basket_prevalence/100)
         tp = (sensitivity/100) * disease_cases
         fn = disease_cases - tp
         tn = (spec/100) * (total_population - disease_cases)
