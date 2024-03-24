@@ -98,7 +98,7 @@ st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 1</h1>", 
 # Function to display the confusion matrix with annotations for multiple specificities
 def display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_population):
     for spec in specificities:
-        disease_cases = total_population * (basket_prevalence/100)
+        disease_cases = total_population * (basket_prevalence)
         tp = (sensitivity/100) * disease_cases
         fn = disease_cases - tp
         tn = (spec/100) * (total_population - disease_cases)
@@ -108,7 +108,7 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
               
         # Create the 2x2 table with annotations
         confusion_matrix = {
-            'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}",f"Total={disease_cases:.0f}"],
+            'Cancer': [f"TP={tp:.0f}", f"FN={fn:.0f}"],
             'Non-Cancer': [f"FP={fp:.0f}", f"TN={tn:.0f}"],
             'PPV / NPV': [f"PPV={ppv:.2%}", f"NPV={npv:.2%}"]
         }
