@@ -128,7 +128,7 @@ def display_confusion_matrix(sensitivity, specificities, basket_prevalence, tota
         st.dataframe(confusion_matrix_df, height=150)
 
 # Calculate basket_prevalence outside the function
-basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors) / len(selected_tumors)
+basket_prevalence = sum(tumor_prevalences[tumor] for tumor in selected_tumors)
 total_population = 100000  # Example population size for testing
 
 # Sensitivity and specificities should come from user input or predefined values
