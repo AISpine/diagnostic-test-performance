@@ -194,4 +194,4 @@ st.markdown("## Reflex Test Matrices")
 # Loop through tier 1 results to display reflex test matrices
 for result in tier1_results:
     st.markdown(f"### Reflex Test Matrix for Initial Specificity: {result['specificity']:.2f}%")
-    display_reflex_test_matrix(tier2_sensitivity / 100, tier2_specificity / 100, result['ppv'], result['total_positives'])
+    display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, result['ppv'], result['total_positives'])
