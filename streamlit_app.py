@@ -139,8 +139,7 @@ display_confusion_matrix(sensitivity, specificities, basket_prevalence, total_po
 # Custom title with HTML and Markdown for Tier 2
 st.markdown("<h1 style='text-align: center;'>Confusion Matrix for Tier 2 (Reflex testing)</h1>", unsafe_allow_html=True)
 
-import streamlit as st
-import pandas as pd
+
 
 # Assuming sensitivity, specificities, basket_prevalence, and total_population are defined correctly elsewhere
 
@@ -184,13 +183,16 @@ def display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, prevalence_
 
 # Assuming these variables are defined with correct values:
 # sensitivity, specificities, basket_prevalence, total_population
-
+# Display the sliders for reflex test specificity and sensitivity
+st.markdown("## Reflex Test Parameters")
+tier2_sensitivity = st.slider('Reflex Test Sensitivity (%)', min_value=0.0, max_value=100.0, value=99.0, step=0.1)
+tier2_specificity = st.slider('Reflex Test Specificity (%)', min_value=0.0, max_value=100.0, value=99.0, step=0.1)
 
 # Calculate tier 1 and get results for tier 2
 tier1_results = calculate_tier1(sensitivity, specificities, basket_prevalence, total_population)
 
 # Loop through tier 1 results to display reflex test matrices
 for result in tier1_results:
-    st.markdown(f"### Reflex Test Matrix for Initial Specificity: {result['specificity']*100:.2f}%")  # Convert back to percentage for display
+    st.markdown(f"### Reflex Test Matrix for Initial Specificity: {result['specificity']:.2f}%")  # Convert back to percentage for display
     display_reflex_test_matrix(tier2_sensitivity, tier2_specificity, result['ppv'], result['total_positives'])  # Convert sliders to proportions
 
